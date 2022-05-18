@@ -1,0 +1,12 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+ColumnLimit: 160
+AllowShortFunctionsOnASingleLine: false
+SortIncludes: false
+IndentWidth: 4
+BinPackArguments: false
+PenaltyBreakAssignment: 1000
+PenaltyBreakBeforeFirstCallParameter: 1000
+...
+

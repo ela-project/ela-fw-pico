@@ -1,0 +1,34 @@
+.program pins_input
+.define public PIN_COUNT 8
+
+    set x, 0
+start:
+    in pins, PIN_COUNT
+    jmp !osre finite
+    jmp start
+finite:
+    mov x, osr
+finite_loop:
+    in pins, PIN_COUNT
+    nop
+    jmp x-- finite_loop
+    irq nowait 0
+end_loop:
+    jmp end_loop
+
+% c-sdk {
+inline void init_pio_pins_input(PIO pio, uint sm, uint offset, uint pin_base) {
+    pio_sm_config c = pins_input_program_get_default_config(offset);
+    sm_config_set_in_pins(&c, pin_base);
+    sm_config_set_in_shift(&c, false, true, pins_input_PIN_COUNT);
+    sm_config_set_out_shift(&c, false, true, 32);
+
+    for(uint i{0}; i < pins_input_PIN_COUNT; ++i){
+        pio_gpio_init(pio, pin_base + i);
+    }
+
+    pio_sm_set_consecutive_pindirs(pio, sm, pin_base, pins_input_PIN_COUNT, false);
+
+    pio_sm_init(pio, sm, offset, &c);
+}
+%}

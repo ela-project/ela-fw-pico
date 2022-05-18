@@ -6,10 +6,14 @@ Logic Analyzer uses modified PulseView https://github.com/ela-project/ela-pulsev
 Compiled binary file can be foud here:
  - https://github.com/ela-project/ela-fw-pico/releases
 
-# Compilation
+## Compilation
 ```bash
+git submodule update --init
 mkdir build
 cd build
 cmake ..
 cmake --build .
 ```
+
+## Pinout
+<img src="./ela-pico-pinout.svg" width="400">
